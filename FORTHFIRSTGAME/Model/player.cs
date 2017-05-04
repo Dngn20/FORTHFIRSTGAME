@@ -2,12 +2,14 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using FORTHFIRSTGAME.Model;
 namespace FORTHFIRSTGAME
 {
 	public class player
 	{
-		// Animation representing the player
-		public Texture2D PlayerTexture;
+		
+	// Animation representing the player
+public Animation PlayerAnimation;
 
 		// Position of the Player relative to the upper left side of the screen
 		public Vector2 Position;
