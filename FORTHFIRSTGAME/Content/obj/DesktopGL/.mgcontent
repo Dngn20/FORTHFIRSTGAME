@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SourceFileCollection xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Profile>Reach</Profile>
+  <Platform>DesktopGL</Platform>
+  <Config />
+  <SourceFiles>
+    <File>/Users/dngu9879/Documents/Game Dev/FORTHFIRSTGAME/FORTHFIRSTGAME/Content/Texture/mainMenu.png</File>
+    <File>/Users/dngu9879/Documents/Game Dev/FORTHFIRSTGAME/FORTHFIRSTGAME/Content/Texture/mine.png</File>
+    <File>/Users/dngu9879/Documents/Game Dev/FORTHFIRSTGAME/FORTHFIRSTGAME/Content/Texture/player.png</File>
+    <File>/Users/dngu9879/Documents/Game Dev/FORTHFIRSTGAME/FORTHFIRSTGAME/Content/Texture/bgLayer1.png</File>
+    <File>/Users/dngu9879/Documents/Game Dev/FORTHFIRSTGAME/FORTHFIRSTGAME/Content/Texture/bgLayer2.png</File>
+    <File>/Users/dngu9879/Documents/Game Dev/FORTHFIRSTGAME/FORTHFIRSTGAME/Content/Texture/endMenu.png</File>
+    <File>/Users/dngu9879/Documents/Game Dev/FORTHFIRSTGAME/FORTHFIRSTGAME/Content/Texture/laser.png</File>
+    <File>/Users/dngu9879/Documents/Game Dev/FORTHFIRSTGAME/FORTHFIRSTGAME/Content/Animation/mineAnimation.png</File>
+    <File>/Users/dngu9879/Documents/Game Dev/FORTHFIRSTGAME/FORTHFIRSTGAME/Content/Animation/shipAnimation.png</File>
+    <File>/Users/dngu9879/Documents/Game Dev/FORTHFIRSTGAME/FORTHFIRSTGAME/Content/Animation/explosion.png</File>
+    <File>/Users/dngu9879/Documents/Game Dev/FORTHFIRSTGAME/FORTHFIRSTGAME/Content/Texture/mainbackground.png</File>
+  </SourceFiles>
+</SourceFileCollection>
