@@ -15,5 +15,10 @@
     <File>/Users/dngu9879/Documents/Game Dev/FORTHFIRSTGAME/FORTHFIRSTGAME/Content/Animation/shipAnimation.png</File>
     <File>/Users/dngu9879/Documents/Game Dev/FORTHFIRSTGAME/FORTHFIRSTGAME/Content/Animation/explosion.png</File>
     <File>/Users/dngu9879/Documents/Game Dev/FORTHFIRSTGAME/FORTHFIRSTGAME/Content/Texture/mainbackground.png</File>
+    <File>/Users/dngu9879/Documents/Game Dev/FORTHFIRSTGAME/FORTHFIRSTGAME/Content/Sound/explosion.wav</File>
+    <File>/Users/dngu9879/Documents/Game Dev/FORTHFIRSTGAME/FORTHFIRSTGAME/Content/Sound/gameMusic.mp3</File>
+    <File>/Users/dngu9879/Documents/Game Dev/FORTHFIRSTGAME/FORTHFIRSTGAME/Content/Sound/laserFire.wav</File>
+    <File>/Users/dngu9879/Documents/Game Dev/FORTHFIRSTGAME/FORTHFIRSTGAME/Content/Sound/menuMusic.mp3</File>
+    <File>/Users/dngu9879/Documents/Game Dev/FORTHFIRSTGAME/FORTHFIRSTGAME/Content/Font/gameFont.spritefont</File>
   </SourceFiles>
 </SourceFileCollection>

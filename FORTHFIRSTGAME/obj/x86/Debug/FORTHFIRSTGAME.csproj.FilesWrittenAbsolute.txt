@@ -27,3 +27,10 @@
 /Users/dngu9879/Documents/Game Dev/FORTHFIRSTGAME/FORTHFIRSTGAME/bin/Debug/FORTHFIRSTGAME.exe
 /Users/dngu9879/Documents/Game Dev/FORTHFIRSTGAME/FORTHFIRSTGAME/obj/x86/Debug/FORTHFIRSTGAME.exe
 /Users/dngu9879/Documents/Game Dev/FORTHFIRSTGAME/FORTHFIRSTGAME/obj/x86/Debug/FORTHFIRSTGAME.exe.mdb
+/Users/dngu9879/Documents/Game Dev/FORTHFIRSTGAME/FORTHFIRSTGAME/bin/Debug/Content/Sound/explosion.xnb
+/Users/dngu9879/Documents/Game Dev/FORTHFIRSTGAME/FORTHFIRSTGAME/bin/Debug/Content/Sound/gameMusic.ogg
+/Users/dngu9879/Documents/Game Dev/FORTHFIRSTGAME/FORTHFIRSTGAME/bin/Debug/Content/Sound/gameMusic.xnb
+/Users/dngu9879/Documents/Game Dev/FORTHFIRSTGAME/FORTHFIRSTGAME/bin/Debug/Content/Sound/laserFire.xnb
+/Users/dngu9879/Documents/Game Dev/FORTHFIRSTGAME/FORTHFIRSTGAME/bin/Debug/Content/Sound/menuMusic.ogg
+/Users/dngu9879/Documents/Game Dev/FORTHFIRSTGAME/FORTHFIRSTGAME/bin/Debug/Content/Sound/menuMusic.xnb
+/Users/dngu9879/Documents/Game Dev/FORTHFIRSTGAME/FORTHFIRSTGAME/bin/Debug/Content/Font/gameFont.xnb

@@ -2,9 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using FORTHFIRSTGAME.Controller;
+
 #if MONOMAC
 using MonoMac.AppKit;
 using MonoMac.Foundation;
+
 #elif __IOS__ || __TVOS__
 using Foundation;
 using UIKit;
@@ -12,7 +15,6 @@ using UIKit;
 #endregion
 
 namespace FORTHFIRSTGAME.Controller
-                        
 {
 #if __IOS__ || __TVOS__
     [Register("AppDelegate")]
