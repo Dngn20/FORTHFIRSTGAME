@@ -56,6 +56,9 @@ namespace FORTHFIRSTGAME.Controller
 		Texture2D projectileTexture;
 		List<Projectile> projectiles;
 
+		Texture2D bulletTexture;
+		List<Bullet> bullets;
+
 		// The rate of fire of the player laser
 		TimeSpan fireTime;
 		TimeSpan previousFireTime;
@@ -118,6 +121,8 @@ namespace FORTHFIRSTGAME.Controller
 			// Initialize our random number generator
 			random = new Random();
 
+			bullets = new List<Bullet>();
+
 			projectiles = new List<Projectile>();
 
 			// Set the laser to fire every quarter second
@@ -163,8 +168,11 @@ namespace FORTHFIRSTGAME.Controller
 
 			explosionTexture = Content.Load<Texture2D>("Animation/explosion");
 
-			// Load the music
+			bulletTexture = Content.Load<Texture2D>("Texture/bullets");
+
+
 			gameplayMusic = Content.Load<Song>("Sound/gameMusic");
+
 
 
 			// Load the laser and explosion sound effect
@@ -272,6 +280,27 @@ namespace FORTHFIRSTGAME.Controller
 			}
 		}
 
+		private void AddBullet(Vector2 position)
+		{
+			Bullet bullet = new Bullet();
+			bullet.Initialize(GraphicsDevice.Viewport, bulletTexture, position);
+			bullets.Add(bullet);
+		}
+
+		private void UpdateBullets()
+		{
+			// Update the Projectiles
+			for (int i = bullets.Count - 1; i >= 0; i--)
+			{
+				bullets[i].Update();
+
+				if (bullets[i].Active == false)
+				{
+					bullets.RemoveAt(i);
+				}
+			}
+		}
+
 		private void AddProjectile(Vector2 position)
 		{
 			Projectile projectile = new Projectile();
@@ -338,6 +367,7 @@ namespace FORTHFIRSTGAME.Controller
 			// Update the projectiles
 			UpdateProjectiles();
 
+			UpdateBullets();
 			// Update the explosions
 			UpdateExplosions(gameTime);
 
@@ -403,6 +433,12 @@ namespace FORTHFIRSTGAME.Controller
 				laserSound.Play();
 			}
 
+			if (currentKeyboardState.IsKeyDown(Keys.Space) ||
+			currentGamePadState.DPad.Down == ButtonState.Pressed)
+			{
+				// Add the projectile, but add it to the front and center of the player
+				AddBullet(player.Position + new Vector2(player.Width / 2, 0));
+			}
 			// reset score if player health goes to zero
 			if (player.Health <= 0)
 			{
@@ -474,6 +510,29 @@ namespace FORTHFIRSTGAME.Controller
 					}
 				}
 			}
+
+			// Projectile vs Enemy Collision
+			for (int i = 0; i<bullets.Count; i++)
+			{
+				for (int j = 0; j<enemies.Count; j++)
+				{
+					// Create the rectangles we need to determine if we collided with each other
+					rectangle1 = new Rectangle((int)bullets[i].Position.X -
+					bullets[i].Width / 2, (int)bullets[i].Position.Y -
+					bullets[i].Height / 2, bullets[i].Width, bullets[i].Height);
+
+					rectangle2 = new Rectangle((int)enemies[j].Position.X - enemies[j].Width / 2,
+					(int)enemies[j].Position.Y - enemies[j].Height / 2,
+					enemies[j].Width, enemies[j].Height);
+
+					// Determine if the two objects collided with each other
+					if (rectangle1.Intersects(rectangle2))
+					{
+						enemies[j].Health -= bullets[i].Damage;
+						bullets[i].Active = false;
+					}
+				}
+			}
 		}
 
 
@@ -507,6 +566,11 @@ namespace FORTHFIRSTGAME.Controller
 			for (int i = 0; i < projectiles.Count; i++)
 			{
 				projectiles[i].Draw(spriteBatch);
+			}
+
+			for (int i = 0; i < bullets.Count; i++)
+			{
+				bullets[i].Draw(spriteBatch);
 			}
 
 			// Draw the explosions

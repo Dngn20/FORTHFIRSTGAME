@@ -12,6 +12,8 @@ namespace FORTHFIRSTGAME.Model
 		// Animation representing the enemy
 		public Animation EnemyAnimation;
 
+
+
 		// The position of the enemy ship relative to the top left corner of thescreen
 		public Vector2 Position;
 
@@ -50,6 +52,8 @@ namespace FORTHFIRSTGAME.Model
 
 			// Set the position of the enemy
 			Position = position;
+
+
 
 			// We initialize the enemy to be active so it will be update in the game
 			Active = true;

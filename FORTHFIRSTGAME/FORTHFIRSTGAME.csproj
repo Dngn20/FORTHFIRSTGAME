@@ -45,6 +45,7 @@
     <Compile Include="Model\Enemy.cs" />
     <Compile Include="Model\Projectile.cs" />
     <Compile Include="View\ParallxingBackgrounnd.cs" />
+    <Compile Include="Model\Bullet.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.manifest" />
