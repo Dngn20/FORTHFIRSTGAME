@@ -4,13 +4,12 @@ using Microsoft.Xna.Framework.Graphics;
 using FORTHFIRSTGAME.Controller;
 using FORTHFIRSTGAME.View;
 
-
 namespace FORTHFIRSTGAME.Model
 {
-	class Enemy
+	class BounusShip
 	{
 		// Animation representing the enemy
-		public Animation EnemyAnimation;
+		public Animation shipAnimation;
 
 		// The position of the enemy ship relative to the top left corner of thescreen
 		public Vector2 Position;
@@ -30,13 +29,13 @@ namespace FORTHFIRSTGAME.Model
 		// Get the width of the enemy ship
 		public int Width
 		{
-			get { return EnemyAnimation.FrameWidth; }
+			get { return shipAnimation.FrameWidth; }
 		}
 
 		// Get the height of the enemy ship
 		public int Height
 		{
-			get { return EnemyAnimation.FrameHeight; }
+			get { return shipAnimation.FrameHeight; }
 		}
 
 		// The speed at which the enemy moves
@@ -46,7 +45,7 @@ namespace FORTHFIRSTGAME.Model
 		public void Initialize(Animation animation, Vector2 position)
 		{
 			// Load the enemy ship texture
-			EnemyAnimation = animation;
+			shipAnimation = animation;
 
 			// Set the position of the enemy
 			Position = position;
@@ -58,7 +57,7 @@ namespace FORTHFIRSTGAME.Model
 
 
 			// Set the health of the enemy
-			Health = 10;
+			Health = 50;
 
 			// Set the amount of damage the enemy can do
 			Damage = 10;
@@ -68,7 +67,7 @@ namespace FORTHFIRSTGAME.Model
 
 
 			// Set the score value of the enemy
-			Value = 100;
+			Value = 500;
 
 		}
 
@@ -79,10 +78,10 @@ namespace FORTHFIRSTGAME.Model
 			Position.X -= enemyMoveSpeed;
 
 			// Update the position of the Animation
-			EnemyAnimation.Position = Position;
+			shipAnimation.Position = Position;
 
 			// Update Animation
-			EnemyAnimation.Update(gameTime);
+			shipAnimation.Update(gameTime);
 
 			// If the enemy is past the screen or its health reaches 0 then deactivateit
 			if (Position.X < -Width || Health <= 0)
@@ -97,7 +96,7 @@ namespace FORTHFIRSTGAME.Model
 		public void Draw(SpriteBatch spriteBatch)
 		{
 			// Draw the animation
-			EnemyAnimation.Draw(spriteBatch);
+			shipAnimation.Draw(spriteBatch);
 		}
 
 	}

@@ -46,9 +46,15 @@ namespace FORTHFIRSTGAME.Controller
 		Texture2D enemyTexture;
 		List<Enemy> enemies;
 
+		Texture2D bounusShip;
+		List<BounusShip> ships;
+
 		// The rate at which the enemies appear
 		TimeSpan enemySpawnTime;
 		TimeSpan previousSpawnTime;
+
+		TimeSpan shipSpawnTime;
+		TimeSpan shippreviousSpawnTime;
 
 		// A random number generator
 		Random random;
@@ -112,11 +118,19 @@ namespace FORTHFIRSTGAME.Controller
 			// Initialize the enemies list
 			enemies = new List<Enemy>();
 
+			ships = new List<BounusShip>();
+
 			// Set the time keepers to zero
 			previousSpawnTime = TimeSpan.Zero;
 
+			// Set the time keepers to zero
+			shippreviousSpawnTime = TimeSpan.Zero;
+
 			// Used to determine how fast enemy respawns
 			enemySpawnTime = TimeSpan.FromSeconds(1.0f);
+
+			// Used to determine how fast enemy respawns
+			shipSpawnTime = TimeSpan.FromSeconds(1.0f);
 
 			// Initialize our random number generator
 			random = new Random();
@@ -164,6 +178,8 @@ namespace FORTHFIRSTGAME.Controller
 
 			enemyTexture = Content.Load<Texture2D>("Animation/mineAnimation");
 
+			bounusShip = Content.Load<Texture2D>("Texture/BonusShip");
+
 			projectileTexture = Content.Load<Texture2D>("Texture/laser");
 
 			explosionTexture = Content.Load<Texture2D>("Animation/explosion");
@@ -201,7 +217,7 @@ namespace FORTHFIRSTGAME.Controller
 				// Loop the currently playing song
 				MediaPlayer.IsRepeating = true;
 			}
-			catch { }
+			catch{ }
 		}
 
 		private void AddExplosion(Vector2 position)
@@ -232,6 +248,62 @@ namespace FORTHFIRSTGAME.Controller
 			enemies.Add(enemy);
 		}
 
+		private void AddShip()
+		{
+			// Create the animation object
+			Animation shipAnimation = new Animation();
+
+			// Initialize the animation with the correct animation information
+			shipAnimation.Initialize(bounusShip, Vector2.Zero, 47, 61, 8, 30, Color.White, 1f, true);
+
+			// Randomly generate the position of the enemy
+			Vector2 position = new Vector2(GraphicsDevice.Viewport.Width + bounusShip.Width / 2, random.Next(100, GraphicsDevice.Viewport.Height - 100));
+
+			// Create an enemy
+			BounusShip ship = new BounusShip();
+
+			// Initialize the enemy
+			ship.Initialize(shipAnimation, position);
+
+			// Add the enemy to the active enemies list
+			ships.Add(ship);
+		}
+
+		private void UpdateShips(GameTime gameTime)
+		{
+			// Spawn a new enemy enemy every 1.5 seconds
+			if (gameTime.TotalGameTime - shippreviousSpawnTime > shipSpawnTime)
+			{
+				shippreviousSpawnTime = gameTime.TotalGameTime;
+
+				// Add an Enemy
+				AddShip();
+			}
+
+			// Update the Enemies
+			for (int i = ships.Count - 1; i >= 0; i--)
+			{
+				ships[i].Update(gameTime);
+
+				if (ships[i].Active == false)
+				{
+					// If not active and health <= 0
+					if (ships[i].Health <= 0)
+					{
+						// Add an explosion
+						AddExplosion(ships[i].Position);
+
+						// Play the explosion sound
+						explosionSound.Play();
+
+						//Add to the player's score
+						score += ships[i].Value;
+					}
+
+					ships.RemoveAt(i);
+				}
+			}
+		}
 		private void UpdateEnemies(GameTime gameTime)
 		{
 			// Spawn a new enemy enemy every 1.5 seconds
@@ -361,6 +433,7 @@ namespace FORTHFIRSTGAME.Controller
 			// Update the enemies
 			UpdateEnemies(gameTime);
 
+			UpdateShips(gameTime);
 			// Update the collision
 			UpdateCollision();
 
@@ -488,6 +561,33 @@ namespace FORTHFIRSTGAME.Controller
 
 			}
 
+			// Do the collision between the player and the enemies
+			for (int i = 0; i < ships.Count; i++)
+			{
+				rectangle2 = new Rectangle((int)ships[i].Position.X,
+				(int)ships[i].Position.Y,
+				ships[i].Width,
+				ships[i].Height);
+
+				// Determine if the two objects collided with each
+				// other
+				if (rectangle1.Intersects(rectangle2))
+				{
+					// Subtract the health from the player based on
+					// the enemy damage
+					player.Health -= ships[i].Damage;
+
+					// Since the enemy collided with the player
+					// destroy it
+					ships[i].Health = 0;
+
+					// If the player health is less than zero we died
+					if (player.Health <= 0)
+						player.Active = false;
+				}
+
+			}
+
 			// Projectile vs Enemy Collision
 			for (int i = 0; i < projectiles.Count; i++)
 			{
@@ -512,9 +612,9 @@ namespace FORTHFIRSTGAME.Controller
 			}
 
 			// Projectile vs Enemy Collision
-			for (int i = 0; i<bullets.Count; i++)
+			for (int i = 0; i < bullets.Count; i++)
 			{
-				for (int j = 0; j<enemies.Count; j++)
+				for (int j = 0; j < enemies.Count; j++)
 				{
 					// Create the rectangles we need to determine if we collided with each other
 					rectangle1 = new Rectangle((int)bullets[i].Position.X -
@@ -533,7 +633,54 @@ namespace FORTHFIRSTGAME.Controller
 					}
 				}
 			}
+			// Projectile vs Enemy Collision
+			for (int i = 0; i < projectiles.Count; i++)
+			{
+				for (int j = 0; j < ships.Count; j++)
+				{
+					// Create the rectangles we need to determine if we collided with each other
+					rectangle1 = new Rectangle((int)projectiles[i].Position.X -
+					projectiles[i].Width / 2, (int)projectiles[i].Position.Y -
+					projectiles[i].Height / 2, projectiles[i].Width, projectiles[i].Height);
+
+					rectangle2 = new Rectangle((int)ships[j].Position.X - ships[j].Width / 2,
+					(int)ships[j].Position.Y - ships[j].Height / 2,
+					ships[j].Width, ships[j].Height);
+
+					// Determine if the two objects collided with each other
+					if (rectangle1.Intersects(rectangle2))
+					{
+						ships[j].Health -= projectiles[i].Damage;
+						projectiles[i].Active = false;
+					}
+				}
+			}
+
+			// Projectile vs Enemy Collision
+			for (int i = 0; i < bullets.Count; i++)
+			{
+				for (int j = 0; j < ships.Count; j++)
+				{
+					// Create the rectangles we need to determine if we collided with each other
+					rectangle1 = new Rectangle((int)bullets[i].Position.X -
+					bullets[i].Width / 2, (int)bullets[i].Position.Y -
+					bullets[i].Height / 2, bullets[i].Width, bullets[i].Height);
+
+					rectangle2 = new Rectangle((int)ships[j].Position.X - ships[j].Width / 2,
+					(int)ships[j].Position.Y - ships[j].Height / 2,
+					ships[j].Width, ships[j].Height);
+
+					// Determine if the two objects collided with each other
+					if (rectangle1.Intersects(rectangle2))
+					{
+						ships[j].Health -= bullets[i].Damage;
+						bullets[i].Active = false;
+					}
+				}
+			}
 		}
+
+
 
 
 		/// <summary>
@@ -560,6 +707,11 @@ namespace FORTHFIRSTGAME.Controller
 			for (int i = 0; i < enemies.Count; i++)
 			{
 				enemies[i].Draw(spriteBatch);
+			}
+
+			for (int i = 0; i < ships.Count; i++)
+			{
+				ships[i].Draw(spriteBatch);
 			}
 
 			// Draw the Projectiles

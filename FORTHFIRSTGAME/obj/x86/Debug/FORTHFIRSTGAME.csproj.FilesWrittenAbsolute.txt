@@ -36,3 +36,6 @@
 /Users/dngu9879/Documents/Game Dev/FORTHFIRSTGAME/FORTHFIRSTGAME/obj/x86/Debug/FORTHFIRSTGAME.exe
 /Users/dngu9879/Documents/Game Dev/FORTHFIRSTGAME/FORTHFIRSTGAME/obj/x86/Debug/FORTHFIRSTGAME.exe.mdb
 /Users/dngu9879/Documents/Game Dev/FORTHFIRSTGAME/FORTHFIRSTGAME/bin/Debug/Content/Texture/bullets.xnb
+/Users/dngu9879/Documents/Game Dev/FORTHFIRSTGAME/FORTHFIRSTGAME/bin/Debug/Content/Texture/BonusShip.xnb
+/Users/dngu9879/Documents/Game Dev/FORTHFIRSTGAME/FORTHFIRSTGAME/bin/Debug/FORTHFIRSTGAME.pdb
+/Users/dngu9879/Documents/Game Dev/FORTHFIRSTGAME/FORTHFIRSTGAME/obj/x86/Debug/FORTHFIRSTGAME.pdb
