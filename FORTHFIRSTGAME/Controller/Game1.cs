@@ -65,6 +65,9 @@ namespace FORTHFIRSTGAME.Controller
 		Texture2D bulletTexture;
 		List<Bullet> bullets;
 
+		Texture2D bombTexture;
+		List<Bomb> bombs;
+
 		// The rate of fire of the player laser
 		TimeSpan fireTime;
 		TimeSpan previousFireTime;
@@ -137,6 +140,8 @@ namespace FORTHFIRSTGAME.Controller
 
 			bullets = new List<Bullet>();
 
+			bombs = new List<Bomb>();
+
 			projectiles = new List<Projectile>();
 
 			// Set the laser to fire every quarter second
@@ -186,6 +191,7 @@ namespace FORTHFIRSTGAME.Controller
 
 			bulletTexture = Content.Load<Texture2D>("Texture/bullets");
 
+			bombTexture = Content.Load<Texture2D>("Texture/bomb");
 
 			gameplayMusic = Content.Load<Song>("Sound/gameMusic");
 
@@ -217,7 +223,7 @@ namespace FORTHFIRSTGAME.Controller
 				// Loop the currently playing song
 				MediaPlayer.IsRepeating = true;
 			}
-			catch{ }
+			catch { }
 		}
 
 		private void AddExplosion(Vector2 position)
@@ -373,6 +379,26 @@ namespace FORTHFIRSTGAME.Controller
 			}
 		}
 
+		private void AddBomb(Vector2 position)
+		{
+			Bomb bomb = new Bomb();
+			bomb.Initialize(GraphicsDevice.Viewport, bombTexture, position);
+			bombs.Add(bomb);
+		}
+
+		private void UpdateBomb()
+		{
+			// Update the Projectiles
+			for (int i = bombs.Count - 1; i >= 0; i--)
+			{
+				bombs[i].Update();
+
+				if (bombs[i].Active == false)
+				{
+					bombs.RemoveAt(i);
+				}
+			}
+		}
 		private void AddProjectile(Vector2 position)
 		{
 			Projectile projectile = new Projectile();
@@ -439,6 +465,8 @@ namespace FORTHFIRSTGAME.Controller
 
 			// Update the projectiles
 			UpdateProjectiles();
+
+			UpdateBomb();
 
 			UpdateBullets();
 			// Update the explosions
@@ -511,6 +539,19 @@ namespace FORTHFIRSTGAME.Controller
 			{
 				// Add the projectile, but add it to the front and center of the player
 				AddBullet(player.Position + new Vector2(player.Width / 2, 0));
+			}
+			// reset score if player health goes to zero
+			if (player.Health <= 0)
+			{
+				player.Health = 100;
+				score = 0;
+			}
+
+			if (currentKeyboardState.IsKeyDown(Keys.V) ||
+			currentGamePadState.DPad.Down == ButtonState.Pressed)
+			{
+				// Add the projectile, but add it to the front and center of the player
+				AddBomb(player.Position + new Vector2(player.Width / 2, 0));
 			}
 			// reset score if player health goes to zero
 			if (player.Health <= 0)
@@ -633,6 +674,29 @@ namespace FORTHFIRSTGAME.Controller
 					}
 				}
 			}
+
+			// Projectile vs Enemy Collision
+			for (int i = 0; i<bombs.Count; i++)
+			{
+				for (int j = 0; j<enemies.Count; j++)
+				{
+					// Create the rectangles we need to determine if we collided with each other
+					rectangle1 = new Rectangle((int)bombs[i].Position.X -
+					bombs[i].Width / 2, (int)bombs[i].Position.Y -
+					bombs[i].Height / 2, bombs[i].Width, bombs[i].Height);
+
+					rectangle2 = new Rectangle((int)enemies[j].Position.X - enemies[j].Width / 2,
+					(int)enemies[j].Position.Y - enemies[j].Height / 2,
+					enemies[j].Width, enemies[j].Height);
+
+					// Determine if the two objects collided with each other
+					if (rectangle1.Intersects(rectangle2))
+					{
+						enemies[j].Health -= bombs[i].Damage;
+						bombs[i].Active = false;
+					}
+				}
+			}
 			// Projectile vs Enemy Collision
 			for (int i = 0; i < projectiles.Count; i++)
 			{
@@ -675,6 +739,29 @@ namespace FORTHFIRSTGAME.Controller
 					{
 						ships[j].Health -= bullets[i].Damage;
 						bullets[i].Active = false;
+					}
+				}
+			}
+
+			// Projectile vs Enemy Collision
+			for (int i = 0; i<bombs.Count; i++)
+			{
+				for (int j = 0; j<ships.Count; j++)
+				{
+					// Create the rectangles we need to determine if we collided with each other
+					rectangle1 = new Rectangle((int)bombs[i].Position.X -
+					bombs[i].Width / 2, (int)bombs[i].Position.Y -
+					bombs[i].Height / 2, bombs[i].Width, bombs[i].Height);
+
+					rectangle2 = new Rectangle((int)ships[j].Position.X - ships[j].Width / 2,
+					(int)ships[j].Position.Y - ships[j].Height / 2,
+					ships[j].Width, ships[j].Height);
+
+					// Determine if the two objects collided with each other
+					if (rectangle1.Intersects(rectangle2))
+					{
+						ships[j].Health -= bombs[i].Damage;
+						bombs[i].Active = false;
 					}
 				}
 			}
@@ -723,6 +810,11 @@ namespace FORTHFIRSTGAME.Controller
 			for (int i = 0; i < bullets.Count; i++)
 			{
 				bullets[i].Draw(spriteBatch);
+			}
+
+			for (int i = 0; i<bombs.Count; i++)
+			{
+				bombs[i].Draw(spriteBatch);
 			}
 
 			// Draw the explosions

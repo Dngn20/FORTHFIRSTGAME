@@ -1,15 +1,8 @@
 ﻿<Properties StartupConfiguration="{011F04B3-F96E-48A8-BD83-A836AED06593}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="FORTHFIRSTGAME/Model/BounuShip.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="FORTHFIRSTGAME/Controller/Game1.cs">
     <Files>
-      <File FileName="FORTHFIRSTGAME/Model/player.cs" Line="3" Column="38" />
-      <File FileName="FORTHFIRSTGAME/Controller/Program.cs" Line="21" Column="17" />
-      <File FileName="FORTHFIRSTGAME/View/Animation.cs" Line="9" Column="25" />
-      <File FileName="FORTHFIRSTGAME/Model/Enemy.cs" Line="104" Column="2" />
-      <File FileName="FORTHFIRSTGAME/Model/Projectile.cs" Line="3" Column="40" />
-      <File FileName="FORTHFIRSTGAME/View/ParallxingBackgrounnd.cs" Line="7" Column="25" />
-      <File FileName="FORTHFIRSTGAME/Controller/Game1.cs" Line="171" Column="54" />
-      <File FileName="FORTHFIRSTGAME/Model/Bullet.cs" Line="46" Column="16" />
-      <File FileName="FORTHFIRSTGAME/Model/BounuShip.cs" Line="97" Column="3" />
+      <File FileName="FORTHFIRSTGAME/Controller/Game1.cs" Line="27" Column="51" />
+      <File FileName="FORTHFIRSTGAME/Model/Bomb.cs" Line="53" Column="43" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />

@@ -47,6 +47,7 @@
     <Compile Include="View\ParallxingBackgrounnd.cs" />
     <Compile Include="Model\Bullet.cs" />
     <Compile Include="Model\BounuShip.cs" />
+    <Compile Include="Model\Bomb.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.manifest" />
