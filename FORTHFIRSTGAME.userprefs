@@ -1,7 +1,7 @@
 ﻿<Properties StartupConfiguration="{011F04B3-F96E-48A8-BD83-A836AED06593}|Default">
   <MonoDevelop.Ide.Workbench ActiveDocument="FORTHFIRSTGAME/Controller/Game1.cs">
     <Files>
-      <File FileName="FORTHFIRSTGAME/Controller/Game1.cs" Line="27" Column="51" />
+      <File FileName="FORTHFIRSTGAME/Controller/Game1.cs" Line="402" Column="47" />
       <File FileName="FORTHFIRSTGAME/Model/Bomb.cs" Line="53" Column="43" />
     </Files>
   </MonoDevelop.Ide.Workbench>
